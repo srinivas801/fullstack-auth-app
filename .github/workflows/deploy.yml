@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -72,24 +72,30 @@ jobs:
           EOF
           chmod +x release/start.sh
 
-      - name: Copy release to server
-        uses: appleboy/scp-action@v0.1.7
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "release/*"
-          target: "/home/${{ secrets.SERVER_USER }}/fullstack-auth-release"
-          strip_components: 1
+          name: fullstack-auth-release
+          path: release
 
-      - name: Restart app on server
-        uses: appleboy/ssh-action@v1.2.0
+  deploy:
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - name: Download release artifact
+        uses: actions/download-artifact@v4
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            cd ~/fullstack-auth-release
-            pkill -f 'app.jar' || true
-            export MONGODB_URI='${{ secrets.MONGODB_URI }}'
-            nohup ./start.sh > app.log 2>&1 &
+          name: fullstack-auth-release
+          path: release
+
+      - name: Deploy locally on internal server
+        run: |
+          mkdir -p "$HOME/fullstack-auth-release"
+          cp -R release/. "$HOME/fullstack-auth-release/"
+          cd "$HOME/fullstack-auth-release"
+          pkill -f 'app.jar' || true
+          chmod +x start.sh
+          chmod +x runtime/bin/java
+          export MONGODB_URI='${{ secrets.MONGODB_URI }}'
+          nohup ./start.sh > app.log 2>&1 &

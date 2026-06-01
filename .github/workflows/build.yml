@@ -1,0 +1,69 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Copy frontend into Spring Boot static resources
+        run: |
+          rm -rf backend/src/main/resources/static
+          mkdir -p backend/src/main/resources/static
+          cp -R frontend/dist/. backend/src/main/resources/static/
+
+      - name: Build backend jar
+        working-directory: backend
+        run: ./mvnw clean package
+
+      - name: Create portable Java runtime
+        run: |
+          jlink \
+            --add-modules java.base,java.compiler,java.desktop,java.instrument,java.logging,java.management,java.naming,java.net.http,java.prefs,java.rmi,java.scripting,java.security.jgss,java.sql,jdk.crypto.ec,jdk.unsupported \
+            --strip-debug \
+            --no-header-files \
+            --no-man-pages \
+            --compress=2 \
+            --output runtime
+
+      - name: Prepare artifact
+        run: |
+          mkdir -p release
+          cp backend/target/backend-0.0.1-SNAPSHOT.jar release/app.jar
+          cp -R runtime release/runtime
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fullstack-auth-app
+          path: release

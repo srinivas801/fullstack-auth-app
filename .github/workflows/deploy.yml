@@ -41,6 +41,9 @@ jobs:
           mkdir -p backend/src/main/resources/static
           cp -R frontend/dist/. backend/src/main/resources/static/
 
+      - name: Make Maven wrapper executable
+        run: chmod +x backend/mvnw
+
       - name: Build backend jar
         working-directory: backend
         run: ./mvnw clean package

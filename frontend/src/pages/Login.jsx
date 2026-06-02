@@ -7,6 +7,7 @@ import {
   CircularProgress,
   TextField,
 } from "@mui/material";
+import { AutoAwesome, ShieldOutlined, TrendingUp } from "@mui/icons-material";
 
 import { loginUser } from "../services/api";
 
@@ -47,6 +48,10 @@ function Login() {
         </div>
 
         <div className="auth-copy">
+          <span className="eyebrow light">
+            <AutoAwesome fontSize="small" />
+            Secure AI workspace
+          </span>
           <h1>Welcome back to your AI workspace.</h1>
           <p>
             Sign in to manage intelligent workflows, model-powered decisions, and human review
@@ -67,6 +72,15 @@ function Login() {
             <strong>27</strong>
             <span>live automations</span>
           </div>
+        </div>
+
+        <div className="auth-insight">
+          <ShieldOutlined />
+          <div>
+            <strong>Protected access</strong>
+            <span>Accounts are stored with encrypted password hashes and MongoDB-backed identity.</span>
+          </div>
+          <TrendingUp />
         </div>
       </div>
 

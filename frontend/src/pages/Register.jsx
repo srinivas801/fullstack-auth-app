@@ -7,6 +7,7 @@ import {
   CircularProgress,
   TextField,
 } from "@mui/material";
+import { AutoAwesome, DataObject, RocketLaunch } from "@mui/icons-material";
 
 import { registerUser } from "../services/api";
 
@@ -47,6 +48,10 @@ function Register() {
         </div>
 
         <div className="auth-copy">
+          <span className="eyebrow light">
+            <AutoAwesome fontSize="small" />
+            Start building with AI
+          </span>
           <h1>Create your AI command account.</h1>
           <p>
             Join the workspace to unlock assistants, automation pipelines, analytics, and a secure
@@ -67,6 +72,15 @@ function Register() {
             <strong>24/7</strong>
             <span>AI availability</span>
           </div>
+        </div>
+
+        <div className="auth-insight">
+          <RocketLaunch />
+          <div>
+            <strong>Launch-ready stack</strong>
+            <span>React, Spring Boot, Docker, and MongoDB Atlas working as one flow.</span>
+          </div>
+          <DataObject />
         </div>
       </div>
 

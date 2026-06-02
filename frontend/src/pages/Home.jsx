@@ -18,47 +18,47 @@ const features = [
   {
     icon: <Psychology />,
     title: "Adaptive AI Assistants",
-    text: "Create task-specific agents that understand context, remember preferences, and move work forward with clear next steps.",
+    text: "Context-aware assistants for faster decisions and cleaner work.",
   },
   {
     icon: <Hub />,
     title: "Connected Workflows",
-    text: "Route prompts, files, decisions, and approvals through a single intelligent workspace instead of scattered tools.",
+    text: "Bring prompts, approvals, and actions into one smooth flow.",
   },
   {
     icon: <Lock />,
     title: "Secure by Default",
-    text: "Keep identity, access, and audit trails close to every AI action so teams can experiment without losing control.",
+    text: "Protected access with hashed passwords and MongoDB storage.",
   },
   {
     icon: <Insights />,
     title: "Live Intelligence",
-    text: "Turn signals from your product, users, and operations into summaries, predictions, and timely recommendations.",
+    text: "Turn user and product signals into useful recommendations.",
   },
   {
     icon: <Bolt />,
     title: "Fast Prototyping",
-    text: "Go from rough ideas to working AI experiences with reusable flows, reusable prompts, and clean feedback loops.",
+    text: "Move from idea to working experience without heavy setup.",
   },
   {
     icon: <VerifiedUser />,
     title: "Human Review",
-    text: "Place people at the right checkpoints with confidence scores, explanations, and easy override paths.",
+    text: "Keep people in control where judgment matters.",
   },
 ];
 
 const workflow = [
   {
     title: "Ingest",
-    text: "Bring in product data, documents, support conversations, and team notes without forcing everyone into a new process.",
+    text: "Collect the right signals.",
   },
   {
     title: "Reason",
-    text: "Use models to classify, summarize, compare, draft, and recommend while preserving the source context behind every answer.",
+    text: "Let AI classify, summarize, and recommend.",
   },
   {
     title: "Act",
-    text: "Send polished outputs to your app, dashboard, CRM, inbox, or internal queue with clear ownership and traceability.",
+    text: "Turn insights into action.",
   },
 ];
 
@@ -86,6 +86,8 @@ function Home() {
         </div>
 
         <div className="home-nav-actions">
+          <a href="#features">Features</a>
+          <a href="#metrics">Metrics</a>
           <span className="user-pill">{user?.name ?? "AI Builder"}</span>
           <Button variant="outlined" startIcon={<Logout />} onClick={handleLogout}>
             Logout
@@ -101,16 +103,16 @@ function Home() {
           </span>
           <h1>Build smarter products with AI that actually fits your workflow.</h1>
           <p>
-            NeuralFlow helps teams design assistants, automate decisions, and turn noisy data
-            into clear action. This is your post-login AI command center.
+            NeuralFlow brings intelligent automation, secure identity, and a polished workspace
+            together in one place.
           </p>
 
           <div className="hero-actions">
             <Button variant="contained" size="large" startIcon={<RocketLaunch />}>
-              Launch Workspace
+              Launch AI Workspace
             </Button>
             <Button variant="outlined" size="large">
-              Explore Models
+              View Insights
             </Button>
           </div>
         </div>
@@ -147,12 +149,11 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-section">
+      <section className="home-section" id="features">
         <div className="section-heading">
-          <h2>A practical AI stack for real teams.</h2>
+          <h2>Everything feels fast, focused, and secure.</h2>
           <p>
-            The goal is not another chatbot pasted onto a page. It is a calm, useful system that
-            helps people move faster while keeping context, trust, and control in view.
+            A clean AI workspace for users, automations, insights, and protected access.
           </p>
         </div>
 
@@ -167,12 +168,11 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-section deep-band">
+      <section className="home-section deep-band" id="workflow">
         <div className="section-heading">
-          <h2>From raw inputs to useful action.</h2>
+          <h2>Simple flow. Powerful results.</h2>
           <p>
-            A simple pipeline keeps the experience understandable for users and maintainable for
-            developers.
+            Capture signals, reason with context, and move to action without clutter.
           </p>
         </div>
 
@@ -187,12 +187,11 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-section">
+      <section className="home-section" id="metrics">
         <div className="section-heading">
-          <h2>Designed for outcomes, not demos.</h2>
+          <h2>Built to feel production-ready.</h2>
           <p>
-            Track adoption, accuracy, latency, review volume, and business impact from the same
-            place your team launches AI features.
+            Beautiful screens, clear states, secure storage, and a smooth authenticated flow.
           </p>
         </div>
 
@@ -200,24 +199,24 @@ function Home() {
           <article className="metric-card">
             <strong>12x</strong>
             <h3>Faster first drafts</h3>
-            <p>Teams start with structured outputs instead of blank pages.</p>
+            <p>Start with structure, not blank screens.</p>
           </article>
           <article className="metric-card">
             <strong>38%</strong>
             <h3>Lower manual triage</h3>
-            <p>Routine routing and summarization happen automatically.</p>
+            <p>Routine routing becomes automatic.</p>
           </article>
           <article className="metric-card">
             <strong>24/7</strong>
             <h3>Always-on support</h3>
-            <p>Assistants stay available while sensitive cases move to people.</p>
+            <p>AI stays available around the clock.</p>
           </article>
         </div>
       </section>
 
       <footer className="home-footer">
         <span>NeuralFlow AI Workspace</span>
-        <span>Built for secure, human-centered automation.</span>
+        <span>Secure AI access, beautifully delivered.</span>
       </footer>
     </div>
   );
